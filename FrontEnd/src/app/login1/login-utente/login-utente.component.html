@@ -1,0 +1,51 @@
+
+ <body>
+    <div class="immagine-sfondo">   
+    </div>
+    <nav>
+      <ul class="nav-bar">
+        <div class="title">
+          <a href="#" (click)="home()"><img src="../../assets/icons/profilo.png" alt="icona profilo" class="icona-profilo"></a>
+        </div>
+      </ul>
+    </nav>
+
+    <div class="container">
+      
+      <input
+        type="checkbox"
+        id="check" />
+      <div class="login form">
+        <header>Login</header>
+        <div *ngIf="loginMessage">{{ loginMessage }}</div>
+
+        <form  [formGroup]='prova' action="#">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email">
+          <label for="password">Password</label>
+          <input id="password" type="password" formControlName="password">
+          <a>Hai dimenticato la tua password?</a>
+          <input
+          type="button"
+          class="button"
+          value="Login" (click)="onSubmit()"/>
+
+        </form>
+        <div class="signup">
+          <span class="signup"
+            >Non hai un account?
+            <a (click)="registrazione()">Registrati</a>
+          </span>
+        </div>
+        <div class="signup">
+          <span class="signup"
+            >Sei un admin?
+            <a (click)="loginAdmin()">Login admin</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="ritorna">
+      <a href="./index.html">Torna alla home</a>
+    </div> -->
+  </body>

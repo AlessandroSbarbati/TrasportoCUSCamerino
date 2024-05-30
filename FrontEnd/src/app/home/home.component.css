@@ -1,0 +1,512 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  --color1: #fff;
+  --color2: #181818;
+  --btn1: #0645bf;
+  background-color: #dfdfdf;
+}
+
+.immagine-sfondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  z-index: 0; 
+  background-image: url("/assets/images/header.jpg");
+  background-position: top left;
+  background-size: cover;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  overflow: hidden; /* Impedisce al pseudo-elemento di sporgere oltre i bordi arrotondati */
+
+}
+
+.immagine-sfondo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Overlay nero con opacità per scurire l'immagine */
+  z-index: 1; /* Assicura che l'overlay sia sopra l'immagine di sfondo */
+}
+
+nav {
+  padding: 1rem 0.2rem 0 0.2rem;
+  height: 3rem;
+  z-index: 101;
+}
+
+.nav-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  position: relative;
+  background-color: transparent;
+  padding: 12px 20px;
+  border-bottom-left-radius: 1.2rem;
+  border-bottom-right-radius: 1.2rem;
+}
+
+.title {
+  color: var(--color2);
+  font-size: 20px;
+  font-weight: 600;
+  z-index: 102;
+}
+
+.icona-profilo {
+  width: 40px;
+  height: 40px;
+}
+
+.menu-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 100;
+}
+.menu li {
+  list-style-type: none;
+  background-color: #0645bf;
+  border: 1px solid #0645bf;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 0 10px 10px 0; /* Aggiunto un margine destro e inferiore per distanziare gli elementi del menu */
+  width: calc(50% - 10px); /* Imposta la larghezza di ogni elemento del menu per occupare metà dello spazio disponibile, sottraendo il margine */
+ text-align: center;
+}
+.menu li a {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--color1);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  transition: 0.15s ease-in-out;
+  position: relative;
+  text-transform: uppercase;
+}
+.menu li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color2);
+  transition: 0.15s ease-in-out;
+  z-index: 100;
+}
+.menu li a:hover:after {
+  width: 100%;
+}
+
+.open-menu,
+.close-menu {
+  position: absolute;
+  color: var(--color2);
+  cursor: pointer;
+  font-size: 2rem;
+  display: none;
+  z-index: 100;
+}
+.open-menu {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+.close-menu {
+  top: 60px;
+  right: 60px;
+}
+#check {
+  display: none;
+}
+@media (max-width: 610px) {
+  .menu {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 5rem;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    background-color: var(--color1);
+    color: var(--color2);
+    transition: all 0.2s ease-in-out;
+    transform: translateX(100%);
+  }
+  .menu li {
+    margin-top: 20px;
+  }
+  .menu li a {
+    padding: 10px;
+  }
+  .open-menu,
+  .close-menu {
+    display: block;
+  }
+  #check:checked ~ .menu {
+    transform: translateX(0);
+  }
+}
+
+/* MAIN SECTIONS */
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+.boxGrande {
+  height: 25vh;
+  width: 100%;
+  border-radius: 2rem;
+  margin-top: 1rem;
+}
+
+.boxGrande2 {
+  height: 40vh;
+  width: 100%;
+  margin-top: 28vh;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 60% 1fr;
+  grid-template-rows: 5rem 1fr 1fr;
+  border: 3px solid white;
+  border-radius: 2rem;
+  padding: 0.4rem;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.boxGrande3 {
+  display: grid;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+  height: 20vh;
+  width: 100%;
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.container-flex {
+  display: table-column;
+  justify-content: space-between; /* Distribuisce lo spazio tra i div. Usa 'space-around' per spazio intorno ai div */
+  align-items: flex-start; /* Mantiene gli elementi in alto */
+  flex-wrap: wrap; /* Permette agli elementi di passare alla riga successiva se non c'è abbastanza spazio */
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-column: 1 / span 2; /* Occupa due colonne dalla colonna 1 */
+  grid-row: 1;
+}
+
+.testo {
+  max-width: 100%;
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  padding: 1rem;
+}
+
+.titoli {
+  font-size: 1.3rem;
+}
+
+.btn {
+  background-color: #001241;
+  margin: 0.2rem;
+  border-radius: 1rem;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.btn2 {
+  width: 100%;
+  padding: 0.2rem 0;
+  background-color: #001241;
+  border-radius: 1rem;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.bottone1 {
+  color: var(--color1);
+  background-color: var(--btn1);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+  grid-column: 1; /* Occupa la prima colonna */
+  grid-row: 2;
+  padding: 0 1rem;
+}
+
+.bottone2 {
+  grid-row: span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottone3 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+  padding-left: 1rem;
+}
+
+.bottone4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.icona {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.icona-tratte {
+  width: 2.5rem;
+  height: 2.8rem;
+}
+
+.icona-guidatori {
+  width: 3.5rem;
+  height: 2.5rem;
+}
+
+.icona-passaggio {
+  width: 3rem;
+  height: 2.5rem;
+}
+
+@media (max-width: 400px) {
+  .testo {
+    padding: clamp(1rem, 5%, 0.5rem);
+    font-size: 1.1rem;
+  }
+  .titoli {
+    font-size: 1.1rem;
+  }
+  .bottone1,
+  .bottone3 {
+    gap: 0.6rem;
+    padding-left: 1.8rem;
+  }
+}
+
+@media (min-height: 700px) {
+  .boxGrande2 {
+    grid-template-rows: 8rem 1fr 1fr;
+  }
+}
+
+@media (min-height: 800px) {
+  .boxGrande2 {
+    grid-template-rows: 10rem 1fr 1fr;
+  }
+}
+
+@media (min-height: 700px) and (max-width: 370px) {
+  .boxGrande2 {
+    grid-template-rows: 6rem 1fr 1fr;
+  }
+}
+
+/* iphone 12-13 */
+
+@media (max-width: 450px) and (min-height: 800px) {
+  .boxGrande2 {
+    grid-template-rows: 9rem 1fr 1fr;
+  }
+  .testo {
+    font-size: 1.5rem;
+  }
+}
+
+/* tablet - ipad mini  */
+
+@media (min-width: 700px) and (max-height: 1200px) {
+  .boxGrande2 {
+    grid-template-rows: 10rem 1fr 1fr;
+  }
+  .testo {
+    font-size: 1.8rem;
+  }
+  .titoli {
+    font-size: 1.6rem;
+  }
+}
+
+/******************** LOGIN ****************/
+
+/* media query */
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 430px;
+  width: 100%;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container .form {
+  padding: 2rem;
+}
+.form header {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.form input {
+  height: 60px;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 17px;
+  margin-bottom: 1.3rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+.form input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.form a {
+  font-size: 16px;
+  color: #2196f3;
+  text-decoration: none;
+}
+.form a:hover {
+  text-decoration: underline;
+}
+.form input.button {
+  color: #fff;
+  background: #2196f3;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.form input.button:hover {
+  background: #2196f3;
+}
+.signup {
+  font-size: 17px;
+  text-align: center;
+}
+.signup label {
+  color: #2196f3;
+  cursor: pointer;
+}
+.signup label:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 430px) {
+  .container {
+    width: 90%;
+  }
+}
+
+/******************** SIGN UP FORM ******************/
+
+.container .form {
+  padding: 2rem;
+}
+
+/* NOn fare caso a queste col e row, sono per una eventuale versione desktop */
+.signup-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.signup-col {
+  width: 48%;
+  padding: 0 10px;
+}
+
+@media (max-width: 768px) {
+  .signup-col {
+    width: 100%;
+  }
+  .login input {
+    height: 40px;
+  }
+
+  .container .login {
+    padding: 1rem;
+  }
+}
+
+.ritorna {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+}
+
+.ritorna a {
+  text-decoration: none;
+  color: var(--color2);
+}

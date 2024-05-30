@@ -1,0 +1,117 @@
+<body>
+  <div class="immagine-sfondo"></div>
+
+<nav>
+  <ul class="nav-bar">
+    <div class="title">
+      <a (click)="home()"><img src="../../assets/icons/profilo.png" alt="icona profilo" class="icona-profilo"></a>
+    </div>
+    <input
+      type="checkbox"
+      id="check" />
+    <div class="menu">
+      <div class="menu-container">
+        <li><a (click)="logOut()">Logout</a></li>
+      </div>
+      <label
+        for="check"
+        class="close-menu"
+        ><i
+          class="fas fa-times"
+          style="color: black"></i
+      ></label>
+    </div>
+    <label
+      for="check"
+      class="open-menu"
+      ><i
+        class="fas fa-bars"
+        style="color: white"></i
+    ></label>
+  </ul>
+</nav>
+    <div class="row mt-5 " style="padding-top: 20px; padding-bottom: 20px;">
+        <button class="btn btn-warning btn-sm col-4 ms-4 mt-2 " (click)="apriTutti()">Tutti i giorni</button>
+    </div>
+    <hr>
+    <div class="row mt-2">
+    <h5 class="ms-3">Visualizza i giorni della settimana</h5>
+        <button class="btn btn-sm col-2 ms-4" (click)="apriLun()">lunedi</button>
+        <button class="btn btn-sm col-2 ms-1" (click)="apriMar()">Martedì</button>
+        <button class="btn btn-sm col-2 ms-1" (click)="apriMer()">Mercole</button>
+        <button class="btn btn-sm col-2 ms-1" (click)="apriGiov()">Giovedì</button>
+        <button class="btn btn-sm col-2 ms-1 " (click)="apriVen()">Vener</button>
+
+    </div>
+    <div class="container  justify-content-center mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Prenotazioni della settimana</h5>
+            <div class="table table-responsive">
+                <table  class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Giorno</th>
+                        <th scope="col">Ora</th>
+                        <th scope="col">Utente</th>
+                        <th scope="col">Tratta</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="tutti">
+                        <tr *ngFor="let pre of prenotazioni">
+                        <td>{{pre.giornoSettimana}}</td>
+                        <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                        <td>{{pre.utente.nome}}</td>
+                        <td>{{pre.indirizzo}}</td>
+    
+                    </tr>
+                    </tbody>
+                    <tbody *ngIf="lunedi">
+                        <tr *ngFor="let pre of prenotazioniLunedi">
+                        <td>{{pre.giornoSettimana}}</td>
+                        <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                        <td>{{pre.utente.nome}}</td>
+                        <td>{{pre.indirizzo}}</td>
+                    </tr>
+                    </tbody>
+                    <tbody *ngIf="martedi" >
+                        <tr *ngFor="let pre of prenotazioniMartedi">
+                        <td>{{pre.giornoSettimana}}</td>
+                        <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                        <td>{{pre.utente.nome}}</td>
+                        <td>{{pre.indirizzo}}</td>
+
+                    </tr>
+                    </tbody>
+                    <tbody *ngIf="mercoledi" >
+                        <tr *ngFor="let pre of prenotazioniMercoledi">
+                        <td>{{pre.giornoSettimana}}</td>
+                        <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                        <td>{{pre.utente.nome}}</td>
+                        <td>{{pre.indirizzo}}</td>
+                    </tr>
+                    </tbody>
+                    <tbody *ngIf="giovedi" >
+                        <tr *ngFor="let pre of prenotazioniGiovedi">
+                        <td>{{pre.giornoSettimana}}</td>
+                        <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                        <td>{{pre.utente.nome}}</td>
+                        <td>{{pre.indirizzo}}</td>
+                    </tr>
+                    </tbody>
+                    <tbody  *ngIf="venerdi" >
+                        <tr *ngFor="let pre of prenotazioniVenerdi">
+                        <td>{{pre.giornoSettimana}}</td>
+                        <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                        <td>{{pre.utente.nome}}</td>
+                        <td>{{pre.indirizzo}}</td>
+                    </tr>
+                    </tbody>
+            
+                </table>
+            </div>
+               
+        </div>
+    </div>
+</div>
+</body>

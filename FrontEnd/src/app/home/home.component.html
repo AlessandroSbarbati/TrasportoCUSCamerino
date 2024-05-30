@@ -1,0 +1,94 @@
+<body >
+  <div class="immagine-sfondo">   
+    </div>
+      <nav>
+        <ul class="nav-bar">
+          <div class="title">
+            <a (click)="home()"><img src="../../assets/icons/profilo.png" alt="icona profilo" class="icona-profilo"></a>
+          </div>
+          <input type="checkbox" id="check"/>
+          <span class="menu">
+            <li><a (click)="logOut()">Logout</a></li>
+            <label
+              for="check"
+              class="close-menu"
+              ><i class="fas fa-times"
+              style="color: black"></i
+            ></label>
+          </span>
+          <label
+            for="check"
+            class="open-menu"
+            ><i
+              class="fas fa-bars"
+              style="color: white"></i
+          ></label>
+        </ul>
+      </nav>
+      <main class="main-section">
+
+        <div class="container-flex">
+        <div class="boxGrande2">
+          <div class="textContainer">
+            <p class="testo">
+              Hai bisogno di un passaggio? I nostri utenti saranno a tua completa disposizione!
+            </p>
+          </div>
+          <button class="btn bottone1" (click)="prenota()">
+            <div>
+              <img
+                class="icona"
+                src="../../assets/icons/prenota.png"
+                alt="icona prenotazione" />
+            </div>
+            <p class="titoli">PRENOTA</p>
+          </button>
+          <button class="btn bottone2">
+            <div>
+              <img
+                class="icona-guidatori"
+                src="../../assets/icons/guidatori.png"
+                alt="icona guidatori" />
+            </div>
+            <p class="titoli">PROFILI GUIDATORI</p>
+          </button>
+          <button class="btn bottone3">
+            <div>
+              <img
+                class="icona-tratte"
+                src="../../assets/icons/tratte.png"
+                alt="tratte icona" />
+            </div>
+            <p class="titoli">TRATTE</p>
+          </button>
+        </div>
+        <div class="boxGrande3">
+          <button class="btn2 bottone4">
+            <div>
+              <img
+                class="icona-passaggio"
+                src="../../assets/icons/mano offerta.png"
+                alt="icona offri un passaggio" />
+            </div>
+            <p class="titoli">OFFRI UN PASSAGGIO</p>
+          </button>
+          <button class="btn2 bottone4">
+            <div>
+              <img
+                class="icona"
+                src="../../assets/icons/cronologia.png"
+                alt="icona-cronologia" />
+            </div>
+            <p class="titoli">CRONOLOGIA</p>
+          </button>
+        </div>
+      </div>
+
+
+      </main>
+    
+  </body>
+
+  <!-- <div *ngIf="!isUser()" class="mt-5 text-center" style="margin-top: 100;">
+    <img src="../../assets/images/errore.png" alt="">*ngIf="isUser()"
+  </div> -->

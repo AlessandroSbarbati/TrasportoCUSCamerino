@@ -1,0 +1,184 @@
+
+<body>
+
+  <div class="immagine-sfondo"></div>
+    <nav>
+      <ul class="nav-bar">
+        <a (click)="home()"><div class="title"><img src="../../assets/icons/profilo.png" alt="icona profilo" class="icona-profilo"></div></a>
+        <input
+          type="checkbox"
+          id="check" />
+        <span class="menu">
+          <li><a (click)="logOut()">Logout</a></li>
+          <label
+            for="check"
+            class="close-menu"
+            ><i class="fas fa-times"></i
+          ></label>
+        </span>
+        <label
+          for="check"
+          class="open-menu"
+          ><i
+            class="fas fa-bars"
+            style="color: white"></i
+        ></label>
+      </ul>
+    </nav>
+
+    
+    <div class="contenitore-principale">
+
+  
+        <div class="contenitore-bottoni">
+          <button class="bottone" (click)="lunedi()" >Lunedì</button>
+          <button class="bottone" (click)="martedi()">Martedì</button>
+          <button class="bottone" (click)="mercoledi()" >Mercoledì</button>
+          <button class="bottone" (click)="giovedi()">Giovedì</button>
+          <button class="bottone" (click)="venerdi()" style="background-color: #495057;">Venerdì</button>
+        </div>
+      
+        <div style="margin-bottom:  -10px; margin-top: -20px;">
+          <h1>Venerdi</h1>
+        </div>
+  
+        
+    
+        <div *ngIf="checkIfMondayTuesdayOrWednesday" class="contenitore2">
+          <div class="carta">
+              
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:10:00</span>
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <a  style="color: #2e2e2e; font-size: 0.9rem;" (click)="book('ORE_10','camerino-cus')"> <span>Clicca per prenotare</span></a>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:9:00</span>  
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;" (click)="book('ORE_10_30', 'cus-camerino')">Clicca per prenotare</span>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:15:00</span>  
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:14:00</span>
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:10:00</span>   
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:11:00</span>   
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:11:00</span>  
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">cus-camerino</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Ven:11:00</span>  
+              </div>
+            </div>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!checkIfMondayTuesdayOrWednesday"  class="alert alert-danger" role="alert">
+          Non è possibile effettuare la prenotazione
+        </div>
+        
+    </div>
+    
+    </body>

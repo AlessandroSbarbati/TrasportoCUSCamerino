@@ -1,0 +1,42 @@
+
+<body>
+  <div class="immagine-sfondo">   
+  </div>
+  <nav>
+    <ul class="nav-bar">
+      <div class="title">
+        <a href="#" (click)="home()"><img src="../../assets/icons/profilo.png" alt="icona profilo" class="icona-profilo"></a>
+      </div>
+    </ul>
+  </nav>
+
+    <div class="container">
+      <input
+        type="checkbox"
+        id="check" />
+      <div class="login form">
+        <header>Login</header>
+        <form  [formGroup]='reg' action="#">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email">
+          <label for="password">Password</label>
+          <input id="password" type="password" formControlName="password">
+          <a>Hai dimenticato la tua password?</a>
+          <input
+          type="button"
+          class="button"
+          value="Login" (click)="loginAdmin()"/>
+
+        </form>
+        <div class="signup">
+          <span class="signup"
+            >Torna al login utente
+            <a (click)="login()">Login</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="ritorna">
+      <a href="./index.html">Torna alla home</a>
+    </div>
+  </body>
