@@ -161,4 +161,8 @@ public class UtenteService implements UserDetailsService {
                     .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
             return utente;
         }
+
+    public void updateUtente(Utente utente) {
+        repository.save(utente);
+    }
 }

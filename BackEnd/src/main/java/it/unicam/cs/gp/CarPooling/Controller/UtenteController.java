@@ -1,6 +1,7 @@
 package it.unicam.cs.gp.CarPooling.Controller;
 
 import it.unicam.cs.gp.CarPooling.Model.Utente;
+import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
 import it.unicam.cs.gp.CarPooling.Request.LoginRequest;
 import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
 import it.unicam.cs.gp.CarPooling.Response.JwtAuthenticationResponse;
@@ -10,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
 /**
  * Questa classe gestisce le richieste relative agli utenti nel sistema CarPooling.
  */
@@ -97,4 +101,35 @@ public class UtenteController {
         }
     }
 
-}
+    @PutMapping("/updateUser")
+    public ResponseEntity<String> updateUser(@RequestBody SignUpRequest request, @RequestHeader("Authorization") String token) {
+        try {
+            // Ottieni l'utente corrispondente al token
+            String cleanedToken = token.replace("Bearer ", "");
+            Utente utente = service.getData(cleanedToken);
+
+            // Applica le modifiche ai campi dell'utente con quelli presenti nella richiesta
+            if (request.getNome() != null) {
+                utente.setNome(request.getNome());
+            }
+            if (request.getCognome() != null) {
+                utente.setCognome(request.getCognome());
+            }
+            if (request.getEmail() != null) {
+                utente.setEmail(request.getEmail());
+            }
+            if (request.getTelefono() != null) {
+                utente.setTelefono(request.getTelefono());
+            }
+
+            // Salva le modifiche nell'utente
+            service.updateUtente(utente);
+
+            return ResponseEntity.ok().body("Dati utente aggiornati con successo");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiornamento dei dati utente: " + e.getMessage());
+        }
+    }
+    }
+
