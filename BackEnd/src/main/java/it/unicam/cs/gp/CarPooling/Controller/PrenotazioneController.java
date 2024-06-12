@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
 /**
  * Questa classe gestisce le richieste relative alla prenotazione di viaggi nel sistema CarPooling.
  */
@@ -100,6 +103,36 @@ public class PrenotazioneController {
         } catch (Exception e) {
             e.printStackTrace();
             return "Errore durante l'eliminazione della prenotazione: " + e.getMessage();
+        }
+    }
+
+    @DeleteMapping(path="/deleteBooking")
+    public ResponseEntity<String> deleteBooking(@RequestHeader("Authorization") String token,
+                                @RequestBody BookingRequest bookingRequest){
+        try {
+            String cleanedToken = token.replace("Bearer ", "");
+            String result = prenotazioneService.deletePrenotazioneUtente(cleanedToken, bookingRequest);
+            return ResponseEntity.ok().body("{\"message\": \"" + result + "\"}");
+            } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiunta della prenotazione: " + e.getMessage());
+    }}
+
+    @PostMapping(path = "/updateBooking")
+    public ResponseEntity<String> updateBooking(@RequestBody Map<String, BookingRequest> requests,
+                                                @RequestHeader("Authorization") String token) {
+        try {
+            String cleanedToken = token.replace("Bearer ", "");
+            BookingRequest oldBooking = requests.get("oldBooking");
+            BookingRequest newBooking = requests.get("newBooking");
+            // Cancellare la vecchia prenotazione
+            prenotazioneService.deletePrenotazioneUtente(cleanedToken, oldBooking);
+            // Aggiungere la nuova prenotazione
+            String result = prenotazioneService.prenota(newBooking, cleanedToken);
+            return ResponseEntity.ok().body("{\"message\": \"" + result + "\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiornamento della prenotazione: " + e.getMessage());
         }
     }
 }

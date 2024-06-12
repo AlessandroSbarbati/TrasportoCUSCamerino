@@ -4,9 +4,11 @@ import it.unicam.cs.gp.CarPooling.Model.Prenotazione;
 import it.unicam.cs.gp.CarPooling.Model.Utente;
 import it.unicam.cs.gp.CarPooling.Model.GiornoSettimana;
 import it.unicam.cs.gp.CarPooling.Model.FasciaOraria;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Quest'interfaccia serve per definire una struttura per la Repository delle Prenotazioni
@@ -36,4 +38,15 @@ public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Int
 
     @Query("SELECT p FROM Prenotazione p WHERE p.utente = :utente")
     Iterable<Prenotazione> findByUtente(@Param("utente") Utente utente);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Prenotazione p WHERE p.utente = :utente " +
+            " AND p.giornoSettimana = :giornoSettimana " +
+            " AND p.fasciaOrariaPrenotazione = :fasciaOrariaPrenotazione")
+    void deleteByUtente(@Param("utente") Utente utente,
+                                        @Param("giornoSettimana") GiornoSettimana giornoSettimana,
+                                        @Param("fasciaOrariaPrenotazione") FasciaOraria fasciaOrariaPrenotazione);
 }
+
+

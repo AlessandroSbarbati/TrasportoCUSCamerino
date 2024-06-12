@@ -25,20 +25,21 @@ public class PrenotazioneService {
 
     /**
      * Questo metodo serve per effettuare una prenotazione
+     *
      * @param bookingRequest richiesta della prenotazione
-     * @param token identificativo dell'utente che vuole effettuare la prenotazione
+     * @param token          identificativo dell'utente che vuole effettuare la prenotazione
      * @return stringhe di conferma o di errore
      */
     public String prenota(BookingRequest bookingRequest, String token) {
-        if(prenotazioneRepository.
+        if (prenotazioneRepository.
                 countByGiornoSettimanaAndFasciaOrariaPrenotazione(bookingRequest.getGiorno_prenotazione(),
-                                                                  bookingRequest.getFascia_oraria_prenotazione()) > 8) {
+                        bookingRequest.getFascia_oraria_prenotazione()) > 8) {
             return "Prenotazione non disponibile per mancanza di posti.";
         }
         String userEmail = jwtService.extractUserName(token);
         Utente utente = utenteRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
-        if(prenotazioneRepository.
+        if (prenotazioneRepository.
                 existsByUtenteAndGiornoSettimanaAndFasciaOrariaPrenotazione(
                         utente,
                         bookingRequest.getGiorno_prenotazione(),
@@ -57,6 +58,7 @@ public class PrenotazioneService {
 
     /**
      * Questo metodo serve per cercare tutte le prenotazioni effettuate da un utente
+     *
      * @param token identificativo dell'utente
      * @return repository delle prenotazioni dell'utente
      */
@@ -69,13 +71,16 @@ public class PrenotazioneService {
 
     /**
      * Questo metodo serve per cercare tutte le prenotazioni di tutti gli utenti
+     *
      * @return repository di tutte le prenotazioni
      */
     public Iterable<Prenotazione> findAllPrenotazioni() {
         return prenotazioneRepository.findAll();
     }
+
     /**
      * Questo metodo serve per cercare tutte le prenotazioni effettuate da un utente
+     *
      * @param id identificativo dell'utente
      * @return repository delle prenotazioni dell'utente
      */
@@ -85,6 +90,7 @@ public class PrenotazioneService {
 
     /**
      * Questo metodo serve per eliminare una prenotazione di un utente
+     *
      * @param id identificativo dell'utente
      */
     public void deletePrenotazione(Integer id) {
@@ -93,17 +99,27 @@ public class PrenotazioneService {
 
     /**
      * Questo metodo serve per cercare le prenotazioni presenti in un giorno
+     *
      * @param giornoSettimana giorno in cui cercare le prenotazioni
      * @return repository delle prenotazioni in quel giorno
      */
-    public Iterable<Prenotazione> findPrenotazioniDelGiorno(GiornoSettimana giornoSettimana){
+    public Iterable<Prenotazione> findPrenotazioniDelGiorno(GiornoSettimana giornoSettimana) {
         return prenotazioneRepository.selectDayBookings(giornoSettimana);
     }
 
     /**
      * Questo metodo serve per eliminare tutte le prenotazioni dalla Repository delle Prenotazioni
      */
-    public void deleteAllPrenotazioni(){
+    public void deleteAllPrenotazioni() {
         prenotazioneRepository.deleteAll();
+    }
+
+
+    public String deletePrenotazioneUtente(String token, BookingRequest bookingRequest ) {
+        String userEmail = jwtService.extractUserName(token);
+        Utente utente = utenteRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        prenotazioneRepository.deleteByUtente(utente, bookingRequest.getGiorno_prenotazione(), bookingRequest.getFascia_oraria_prenotazione());
+        return "Prenotazione cancellata";
     }
 }

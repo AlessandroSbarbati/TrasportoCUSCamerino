@@ -46,7 +46,8 @@ public class SecurityConfiguration {
                         "api/user/createUser", "api/admin/createAdmin", "api/user/login", "api/admin/loginAdmin",
                                 "api/booking/allBookings","api/user/getUsers").permitAll()
                         .requestMatchers("api/user/getUserData","api/admin/delete",
-                                "/api/booking/userBookings","api/booking/book").hasAuthority(Role.USER.name())
+                                "api/booking/userBookings","api/booking/book",
+                                "api/booking/deleteBooking", "api/booking/updateBooking").hasAuthority(Role.USER.name())
                         .requestMatchers("api/booking/getDayBookings").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
