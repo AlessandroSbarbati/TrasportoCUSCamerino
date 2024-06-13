@@ -24,6 +24,7 @@ public class UtenteController {
 
     @Autowired
     private UtenteService service;
+
     /**
      * Aggiunge un nuovo utente al sistema.
      *
@@ -40,17 +41,18 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiunta dell'utente: " + e.getMessage());
         }
     }
+
     /**
      * Gestisce la richiesta di accesso di un utente al sistema.
      *
      * @param loginRequest la richiesta di accesso
      * @return una ResponseEntity contenente il token di autenticazione se l'accesso è avvenuto con successo, altrimenti un errore di autenticazione
      */
-    @PostMapping(value ="/login")
-    public ResponseEntity<JwtAuthenticationResponse> getLogin(@RequestBody LoginRequest loginRequest){
-        try{
+    @PostMapping(value = "/login")
+    public ResponseEntity<JwtAuthenticationResponse> getLogin(@RequestBody LoginRequest loginRequest) {
+        try {
             return ResponseEntity.ok(service.signIn(loginRequest));
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Entra sul controller ma non arriva al service");
             return ResponseEntity.badRequest().body(JwtAuthenticationResponse.builder().error("Authentication failed").build());
@@ -67,6 +69,7 @@ public class UtenteController {
         Iterable<Utente> utenti = service.findAllUtenti();
         return ResponseEntity.ok(utenti);
     }
+
     /**
      * Rimuove un utente dal sistema dato il suo identificativo.
      *
@@ -83,6 +86,7 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la rimozione dell'utente: " + e.getMessage());
         }
     }
+
     /**
      * Restituisce i dati dell'utente autenticato.
      *
@@ -90,10 +94,10 @@ public class UtenteController {
      * @return una ResponseEntity contenente i dati dell'utente
      */
     @GetMapping("/getUserData")
-    public ResponseEntity<Utente> getUser(@RequestHeader("Authorization") String token){
+    public ResponseEntity<Utente> getUser(@RequestHeader("Authorization") String token) {
         try {
             String cleanedToken = token.replace("Bearer ", "");
-            Utente result = service.getData( cleanedToken);
+            Utente result = service.getData(cleanedToken);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,12 +105,24 @@ public class UtenteController {
         }
     }
 
+    /*
+    Modifica dati utente, nel caso viene modificata la mail dell'utente viene generato
+    un nuovo token per l'utente eliminando il vecchio
+     */
     @PutMapping("/updateUser")
-    public ResponseEntity<String> updateUser(@RequestBody SignUpRequest request, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<JwtAuthenticationResponse> updateUser(@RequestBody SignUpRequest request, @RequestHeader("Authorization") String token) {
         try {
             // Ottieni l'utente corrispondente al token
             String cleanedToken = token.replace("Bearer ", "");
             Utente utente = service.getData(cleanedToken);
+
+            // Verifica se la nuova email o telefono sono già in uso da un altro utente
+            if (request.getEmail() != null && !request.getEmail().equals(utente.getEmail()) && service.existsByEmail(request.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(JwtAuthenticationResponse.builder().error("Email già in uso").build());
+            }
+            if (request.getTelefono() != null && !request.getTelefono().equals(utente.getTelefono()) && service.existsByTelefono(request.getTelefono())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(JwtAuthenticationResponse.builder().error("Telefono già in uso").build());
+            }
 
             // Applica le modifiche ai campi dell'utente con quelli presenti nella richiesta
             if (request.getNome() != null) {
@@ -125,11 +141,21 @@ public class UtenteController {
             // Salva le modifiche nell'utente
             service.updateUtente(utente);
 
-            return ResponseEntity.ok().body("Dati utente aggiornati con successo");
+            // Genera un nuovo token
+            String newToken = service.generateTokenForUpdatedUser(utente);
+
+            // Crea la risposta con il nuovo token
+            JwtAuthenticationResponse response = JwtAuthenticationResponse.builder()
+                    .token(newToken)
+                    .utente(utente)
+                    .build();
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiornamento dei dati utente: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(JwtAuthenticationResponse.builder().error("Errore durante l'aggiornamento dei dati utente: " + e.getMessage()).build());
         }
     }
-    }
+
+}
 

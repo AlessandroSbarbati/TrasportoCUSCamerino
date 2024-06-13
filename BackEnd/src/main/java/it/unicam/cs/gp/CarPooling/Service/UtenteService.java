@@ -165,4 +165,16 @@ public class UtenteService implements UserDetailsService {
     public void updateUtente(Utente utente) {
         repository.save(utente);
     }
+    public boolean existsByEmail(String email) {
+        return repository.findByEmail(email).isPresent();
+    }
+
+    public boolean existsByTelefono(String telefono) {
+        return repository.findByTelefono(telefono).isPresent();
+    }
+
+    public String generateTokenForUpdatedUser(Utente utente) {
+        return jwtServiceInterface.generateToken(utente);
+    }
+
 }
