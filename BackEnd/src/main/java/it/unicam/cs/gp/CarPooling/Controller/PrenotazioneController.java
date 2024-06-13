@@ -80,6 +80,12 @@ public class PrenotazioneController {
 
     }
 
+    /**
+     * Questo metodo serve per eliminare una prenotazione
+     * @param token token identificativo dell'utente
+     * @param bookingRequest dati della prenotazione
+     * @return messaggio di avvenuta cancellazione
+     */
     @DeleteMapping(path="/deleteBooking")
     public ResponseEntity<String> deleteBooking(@RequestHeader("Authorization") String token,
                                 @RequestBody BookingRequest bookingRequest){
@@ -92,6 +98,12 @@ public class PrenotazioneController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiunta della prenotazione: " + e.getMessage());
     }}
 
+    /**
+     * Questo metodo serve per la modifica di una prenotazione
+     * @param requests dati della vecchia e della nuova prenotazione
+     * @param token token identificativo dell'utente
+     * @return messaggio dell'avvenuta modifica della prenotazione
+     */
     @PostMapping(path = "/updateBooking")
     public ResponseEntity<String> updateBooking(@RequestBody Map<String, BookingRequest> requests,
                                                 @RequestHeader("Authorization") String token) {

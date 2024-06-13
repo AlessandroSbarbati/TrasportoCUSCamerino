@@ -96,7 +96,12 @@ public class PrenotazioneService {
         prenotazioneRepository.deleteAll();
     }
 
-
+    /**
+     * Questo metodo serve per eliminare una prenotazione di un utente
+     * @param token token identificativo dell'utente
+     * @param bookingRequest dati della prenotazione da eliminare
+     * @return messaggio di avvenuta eliminazione della prenotazione
+     */
     public String deletePrenotazioneUtente(String token, BookingRequest bookingRequest ) {
         String userEmail = jwtService.extractUserName(token);
         Utente utente = utenteRepository.findByEmail(userEmail)

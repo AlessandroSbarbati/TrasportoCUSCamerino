@@ -148,21 +148,46 @@ public class UtenteService implements UserDetailsService {
         return utente;
     }
 
+    /**
+     * Questo metodo serve per aggiornare i dati di un utente
+     * @param utente utente da modificare
+     */
     public void updateUtente(Utente utente) {
         repository.save(utente);
     }
+
+    /**
+     * Questo metodo serve per controllare se una mail è gia presente nel sistema
+     * @param email email da controllare
+     * @return messaggio di conferma o meno
+     */
     public boolean existsByEmail(String email) {
         return repository.findByEmail(email).isPresent();
     }
-
+    /**
+     * Questo metodo serve per controllare se un telefono è gia presente nel sistema
+     * @param telefono telefono da controllare
+     * @return messaggio di conferma o meno
+     */
     public boolean existsByTelefono(String telefono) {
         return repository.findByTelefono(telefono).isPresent();
     }
 
+    /**
+     * Questo metodo serve per rigenerare un token per un utente che ha modificato la sua mail
+     * @param utente utente che ha modificato i dati
+     * @return messaggio di conferma o meno
+     */
     public String generateTokenForUpdatedUser(Utente utente) {
         return jwtServiceInterface.generateToken(utente);
     }
 
+    /**
+     * Questo metodo serve per il reset della password
+     * @param email email dell'utente
+     * @param phoneNumber telefono dell'utente
+     * @param newPassword nuova password da impostare
+     */
     public void resetPassword(String email, String phoneNumber, String newPassword) {
         Utente utente = repository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
@@ -175,6 +200,13 @@ public class UtenteService implements UserDetailsService {
         repository.save(utente);
     }
 
+    /**
+     * Questo metodo serve per l'eliminazione di un utente da parte dell'admin
+     * @param nome nome dell'utente da eliminare
+     * @param cognome cognome dell'utente da eliminare
+     * @param email email dell'utente da eliminare
+     * @return messaggio di conferma o meno
+     */
     public String deleteUtente(String nome, String cognome, String email) {
         Utente utente = repository.findByNomeAndCognomeAndEmail(nome, cognome, email)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));

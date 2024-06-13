@@ -96,9 +96,13 @@ public class UtenteController {
         }
     }
 
-    /*
-    Modifica dati utente, nel caso viene modificata la mail dell'utente viene generato
-    un nuovo token per l'utente eliminando il vecchio
+
+    /**
+     * Questo metodo serve per la modifica dei dati di un utente; nel caso della modifica della mail
+     * essendo essa collegata alla generazione dei token, ne verrà generato uno nuovo che sostituirà quello precedente.
+     * @param request dati vecchi e nuovi
+     * @param token token identificativo dell'utente
+     * @return messaggio di avvenuta modifica dei dati
      */
     @PutMapping("/updateUser")
     public ResponseEntity<JwtAuthenticationResponse> updateUser(@RequestBody UserRequest request, @RequestHeader("Authorization") String token) {
@@ -148,6 +152,12 @@ public class UtenteController {
         }
     }
 
+    /**
+     * Questo metodo serve per la modifica della password di un utente
+     * @param request password vecchia e nuova
+     * @param token token identificativo dell'utente
+     * @return messaggio di avvenuta modifica della password
+     */
     @PutMapping("/changePassword")
     public ResponseEntity<JwtAuthenticationResponse> changePassword(@RequestBody ChangePasswordRequest request,
                                                                     @RequestHeader("Authorization") String token) {
@@ -183,6 +193,11 @@ public class UtenteController {
         }
     }
 
+    /**
+     * Questo metodo serve per il reset della password tramite mail e telefono
+     * @param request dati vecchi e nuova password da inserire
+     * @return messaggio di avvenuto reset della password
+     */
     @PutMapping("/resetPassword")
     public ResponseEntity<?> resetPassword(@RequestBody UserRequest request) {
         try {
@@ -194,6 +209,11 @@ public class UtenteController {
         }
     }
 
+    /**
+     * Questo metodo serve per l'eliminazione di un utente da parte dell'admin
+     * @param request dati dell'utente da eliminare
+     * @return messaggio di avvenuta eliminazione dell'utente
+     */
     @DeleteMapping("/deleteUser")
     public ResponseEntity<String> deleteUtente(@RequestBody UserRequest request) {
         try {
