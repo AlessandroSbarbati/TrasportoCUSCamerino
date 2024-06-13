@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                         .requestMatchers("api/user/getUserData","api/admin/delete",
                                 "api/booking/userBookings","api/booking/book",
                                 "api/booking/deleteBooking", "api/booking/updateBooking",
-                                "api/user/updateUser").hasAuthority(Role.USER.name())
+                                "api/user/updateUser", "api/user/changePassword").hasAuthority(Role.USER.name())
                         .requestMatchers("api/booking/getDayBookings").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

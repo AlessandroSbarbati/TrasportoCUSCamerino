@@ -2,6 +2,7 @@ package it.unicam.cs.gp.CarPooling.Controller;
 
 import it.unicam.cs.gp.CarPooling.Model.Utente;
 import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
+import it.unicam.cs.gp.CarPooling.Request.ChangePasswordRequest;
 import it.unicam.cs.gp.CarPooling.Request.LoginRequest;
 import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
 import it.unicam.cs.gp.CarPooling.Response.JwtAuthenticationResponse;
@@ -9,6 +10,7 @@ import it.unicam.cs.gp.CarPooling.Service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,8 @@ public class UtenteController {
     @Autowired
     private UtenteService service;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     /**
      * Aggiunge un nuovo utente al sistema.
      *
@@ -164,5 +168,39 @@ public class UtenteController {
         }
     }
 
+    @PutMapping("/changePassword")
+    public ResponseEntity<JwtAuthenticationResponse> changePassword(@RequestBody ChangePasswordRequest request,
+                                                                    @RequestHeader("Authorization") String token) {
+        try {
+            // Ottieni l'utente corrispondente al token
+            String cleanedToken = token.replace("Bearer ", "");
+            Utente utente = service.getData(cleanedToken);
+
+            // Verifica la vecchia password
+            if (!passwordEncoder.matches(request.getOldPassword(), utente.getPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(JwtAuthenticationResponse.builder().error("Vecchia password errata").build());
+            }
+
+            // Aggiorna la password
+            utente.setPassword(passwordEncoder.encode(request.getNewPassword()));
+            service.updateUtente(utente);
+
+            // Genera un nuovo token
+            String newToken = service.generateTokenForUpdatedUser(utente);
+
+            // Crea la risposta con il nuovo token
+            JwtAuthenticationResponse response = JwtAuthenticationResponse.builder()
+                    .token(newToken)
+                    .utente(utente)
+                    .build();
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(JwtAuthenticationResponse.builder().error("Errore durante la modifica della password: " + e.getMessage()).build());
+        }
+    }
 }
 
