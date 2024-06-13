@@ -1,10 +1,9 @@
 package it.unicam.cs.gp.CarPooling.Controller;
 
 import it.unicam.cs.gp.CarPooling.Model.Utente;
-import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
 import it.unicam.cs.gp.CarPooling.Request.ChangePasswordRequest;
 import it.unicam.cs.gp.CarPooling.Request.LoginRequest;
-import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
+import it.unicam.cs.gp.CarPooling.Request.UserRequest;
 import it.unicam.cs.gp.CarPooling.Response.JwtAuthenticationResponse;
 import it.unicam.cs.gp.CarPooling.Service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * Questa classe gestisce le richieste relative agli utenti nel sistema CarPooling.
@@ -36,7 +33,7 @@ public class UtenteController {
      * @return una ResponseEntity che indica l'esito dell'operazione
      */
     @PostMapping("/createUser")
-    public ResponseEntity<String> addUtente(@RequestBody SignUpRequest request) {
+    public ResponseEntity<String> addUtente(@RequestBody UserRequest request) {
         try {
             if (service.existsByEmail(request.getEmail())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("{\"message\": \"Email già in uso\"}");
@@ -104,7 +101,7 @@ public class UtenteController {
     un nuovo token per l'utente eliminando il vecchio
      */
     @PutMapping("/updateUser")
-    public ResponseEntity<JwtAuthenticationResponse> updateUser(@RequestBody SignUpRequest request, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<JwtAuthenticationResponse> updateUser(@RequestBody UserRequest request, @RequestHeader("Authorization") String token) {
         try {
             // Ottieni l'utente corrispondente al token
             String cleanedToken = token.replace("Bearer ", "");
@@ -187,7 +184,7 @@ public class UtenteController {
     }
 
     @PutMapping("/resetPassword")
-    public ResponseEntity<?> resetPassword(@RequestBody SignUpRequest request) {
+    public ResponseEntity<?> resetPassword(@RequestBody UserRequest request) {
         try {
             service.resetPassword(request.getEmail(), request.getTelefono(), request.getPassword());
             return ResponseEntity.ok("Password reset successfully");
@@ -198,11 +195,11 @@ public class UtenteController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUtente(@RequestBody SignUpRequest request) {
+    public ResponseEntity<String> deleteUtente(@RequestBody UserRequest request) {
         try {
             String result = service.deleteUtente(request.getNome(),
-                                                 request.getCognome(),
-                                                 request.getEmail());
+                    request.getCognome(),
+                    request.getEmail());
             return ResponseEntity.ok().body("{\"message\": \"" + result + "\"}");
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,4 +208,3 @@ public class UtenteController {
         }
     }
 }
-

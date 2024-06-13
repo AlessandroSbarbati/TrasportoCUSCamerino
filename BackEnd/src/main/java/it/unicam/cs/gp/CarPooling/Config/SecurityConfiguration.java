@@ -43,7 +43,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
-                        "api/user/createUser", "api/admin/createAdmin", "api/user/login",
+                                "api/user/createUser", "api/admin/createAdmin", "api/user/login",
                                 "api/admin/loginAdmin","api/booking/allBookings","api/user/getUsers",
                                 "api/user/resetPassword").permitAll()
                         .requestMatchers("api/user/getUserData","api/admin/delete",
@@ -51,7 +51,7 @@ public class SecurityConfiguration {
                                 "api/booking/deleteBooking", "api/booking/updateBooking",
                                 "api/user/updateUser", "api/user/changePassword").hasAuthority(Role.USER.name())
                         .requestMatchers("api/booking/getDayBookings",
-                                                   "api/user/deleteUser").hasAuthority(Role.ADMIN.name())
+                                "api/user/deleteUser").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

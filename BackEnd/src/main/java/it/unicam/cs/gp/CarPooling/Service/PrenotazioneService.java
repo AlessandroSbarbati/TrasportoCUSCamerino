@@ -78,24 +78,6 @@ public class PrenotazioneService {
         return prenotazioneRepository.findAll();
     }
 
-    /**
-     * Questo metodo serve per cercare tutte le prenotazioni effettuate da un utente
-     *
-     * @param id identificativo dell'utente
-     * @return repository delle prenotazioni dell'utente
-     */
-    public Prenotazione getPrenotazioneById(Integer id) {
-        return prenotazioneRepository.findById(id).orElse(null);
-    }
-
-    /**
-     * Questo metodo serve per eliminare una prenotazione di un utente
-     *
-     * @param id identificativo dell'utente
-     */
-    public void deletePrenotazione(Integer id) {
-        prenotazioneRepository.deleteById(id);
-    }
 
     /**
      * Questo metodo serve per cercare le prenotazioni presenti in un giorno

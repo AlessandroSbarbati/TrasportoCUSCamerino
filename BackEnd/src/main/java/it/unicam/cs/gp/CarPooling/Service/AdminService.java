@@ -3,10 +3,9 @@ package it.unicam.cs.gp.CarPooling.Service;
 import it.unicam.cs.gp.CarPooling.Jwt.JwtServiceInterface;
 import it.unicam.cs.gp.CarPooling.Model.Admin;
 import it.unicam.cs.gp.CarPooling.Model.Role;
-import it.unicam.cs.gp.CarPooling.Model.Utente;
 import it.unicam.cs.gp.CarPooling.Repository.AdminRepository;
 import it.unicam.cs.gp.CarPooling.Request.LoginRequest;
-import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
+import it.unicam.cs.gp.CarPooling.Request.UserRequest;
 import it.unicam.cs.gp.CarPooling.Response.JwtAuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +39,7 @@ public class AdminService implements UserDetailsService {
      * @param registerRequest richiesta di registrazione
      * @return stringa di conferma
      */
-    public String registerAdmin(SignUpRequest registerRequest) {
+    public String registerAdmin(UserRequest registerRequest) {
 
         Admin admin = new Admin();
         admin.setNome(registerRequest.getNome());
@@ -59,25 +58,14 @@ public class AdminService implements UserDetailsService {
      * @return token generato dell'Admin
      */
     public JwtAuthenticationResponse signIn(LoginRequest request) {
-        System.out.println("Entra");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        System.out.println("Metà metodo del service");
         Admin admin = repository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         String jwt = jwtServiceInterface.generateToken(admin);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
-    /**
-     * Questo metodo serve per eliminare un Admin
-     * @param id Integer identificativo dell'Admin
-     * @return stringa di conferma
-     */
-    public String deleteAdmin(Integer id) {
-        repository.deleteById(id);
-        return "Admin rimosso con successo";
-    }
 
     /**
      * Questo metodo serve per cercare tutti gli Admin all'interno della Repository

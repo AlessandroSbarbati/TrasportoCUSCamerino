@@ -18,4 +18,3 @@ public interface UtenteRepository extends CrudRepository<Utente, Integer> {
 
     Optional<Utente> findByNomeAndCognomeAndEmail(String nome, String cognome, String email);
 }
-

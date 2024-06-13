@@ -1,9 +1,7 @@
 package it.unicam.cs.gp.CarPooling.Service;
 
-import it.unicam.cs.gp.CarPooling.Model.Prenotazione;
 import it.unicam.cs.gp.CarPooling.Model.Role;
-import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
-import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
+import it.unicam.cs.gp.CarPooling.Request.UserRequest;
 import it.unicam.cs.gp.CarPooling.Jwt.JwtServiceInterface;
 import it.unicam.cs.gp.CarPooling.Model.Utente;
 import it.unicam.cs.gp.CarPooling.Repository.UtenteRepository;
@@ -46,7 +44,7 @@ public class UtenteService implements UserDetailsService {
      * @param registerRequest richiesta della registrazione
      * @return stringa di conferma
      */
-    public String registerUtente(SignUpRequest registerRequest) {
+    public String registerUtente(UserRequest registerRequest) {
 
         Utente utente = new Utente();
         utente.setNome(registerRequest.getNome());
@@ -66,10 +64,8 @@ public class UtenteService implements UserDetailsService {
      * @return token generato dell'Utente
      */
     public JwtAuthenticationResponse signIn(LoginRequest request) {
-        System.out.println("Entra");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        System.out.println("Metà metodo del service");
         Utente user = repository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         String jwt = jwtServiceInterface.generateToken(user);
@@ -93,7 +89,7 @@ public class UtenteService implements UserDetailsService {
         repository.save(utente);
         return "Utente salvato con successo";
     }
-        /**
+    /**
      * Questo metodo serve per trovare tutti gli utenti dalla repository
      * @return repository con tutti gli utenti
      */
@@ -146,11 +142,11 @@ public class UtenteService implements UserDetailsService {
      */
     public Utente getData(String token) {
 
-            String userEmail = jwtService.extractUserName(token);
-            Utente utente = repository.findByEmail(userEmail)
-                    .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
-            return utente;
-        }
+        String userEmail = jwtService.extractUserName(token);
+        Utente utente = repository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        return utente;
+    }
 
     public void updateUtente(Utente utente) {
         repository.save(utente);
@@ -186,5 +182,3 @@ public class UtenteService implements UserDetailsService {
         return "Utente rimosso con successo";
     }
 }
-
-

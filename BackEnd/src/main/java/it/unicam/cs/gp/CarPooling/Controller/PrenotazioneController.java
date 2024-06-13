@@ -79,32 +79,6 @@ public class PrenotazioneController {
             return ResponseEntity.ok(prenotazioni);
 
     }
-    /**
-     * Restituisce una prenotazione dato il suo identificativo.
-     *
-     * @param id l'identificativo della prenotazione
-     * @return la prenotazione corrispondente all'identificativo specificato
-     */
-    @GetMapping(path = "/booking/{id}")
-    public @ResponseBody Prenotazione getPrenotazioneById(@PathVariable Integer id) {
-        return prenotazioneService.getPrenotazioneById(id);
-    }
-    /**
-     * Elimina una prenotazione dato il suo identificativo.
-     *
-     * @param id l'identificativo della prenotazione da eliminare
-     * @return un messaggio indicante l'esito dell'operazione
-     */
-    @DeleteMapping(path = "/booking/{id}")
-    public @ResponseBody String deletePrenotazione(@PathVariable Integer id) {
-        try {
-            prenotazioneService.deletePrenotazione(id);
-            return "Prenotazione eliminata con successo";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Errore durante l'eliminazione della prenotazione: " + e.getMessage();
-        }
-    }
 
     @DeleteMapping(path="/deleteBooking")
     public ResponseEntity<String> deleteBooking(@RequestHeader("Authorization") String token,

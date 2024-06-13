@@ -1,9 +1,8 @@
 package it.unicam.cs.gp.CarPooling.Controller;
 
 import it.unicam.cs.gp.CarPooling.Model.Admin;
-import it.unicam.cs.gp.CarPooling.Model.Utente;
 import it.unicam.cs.gp.CarPooling.Request.LoginRequest;
-import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
+import it.unicam.cs.gp.CarPooling.Request.UserRequest;
 import it.unicam.cs.gp.CarPooling.Response.JwtAuthenticationResponse;
 import it.unicam.cs.gp.CarPooling.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class AdminController {
      * @return una ResponseEntity che indica l'esito dell'operazione
      */
     @PostMapping("/createAdmin")
-    public ResponseEntity<String> addAdmin(@RequestBody SignUpRequest request) {
+    public ResponseEntity<String> addAdmin(@RequestBody UserRequest request) {
         try {
             String result = service.registerAdmin(request);
             return ResponseEntity.ok(result);
@@ -49,7 +48,6 @@ public class AdminController {
             return ResponseEntity.ok(service.signIn(loginRequest));
         }catch(Exception e){
             e.printStackTrace();
-            System.out.println("Entra sul controller ma non arriva al service");
             return ResponseEntity.badRequest().body(JwtAuthenticationResponse.builder().error("Authentication failed").build());
         }
     }
