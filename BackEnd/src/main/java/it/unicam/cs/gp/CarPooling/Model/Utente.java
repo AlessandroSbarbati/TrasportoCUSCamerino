@@ -54,6 +54,10 @@ public class Utente implements UserDetails {
     @Column(name = "telefono")
     private String telefono;
 
+    @NotBlank(message = "Il campo cognome non può essere vuoto")
+    @Column(name = "codiceCUS")
+    private String codiceCUS;
+
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;

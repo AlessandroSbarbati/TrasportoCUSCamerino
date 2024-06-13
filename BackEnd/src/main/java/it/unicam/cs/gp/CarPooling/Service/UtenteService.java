@@ -52,6 +52,7 @@ public class UtenteService implements UserDetailsService {
         utente.setEmail(registerRequest.getEmail());
         utente.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         utente.setTelefono(registerRequest.getTelefono());
+        utente.setCodiceCUS(registerRequest.getCodiceCUS());
         utente.setRole(Role.USER);
 
         repository.save(utente);

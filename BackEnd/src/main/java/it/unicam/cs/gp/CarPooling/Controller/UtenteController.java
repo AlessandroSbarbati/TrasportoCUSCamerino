@@ -132,6 +132,9 @@ public class UtenteController {
             if (request.getTelefono() != null) {
                 utente.setTelefono(request.getTelefono());
             }
+            if (request.getCodiceCUS() != null) {
+                utente.setCodiceCUS(request.getCodiceCUS());
+            }
 
             // Salva le modifiche nell'utente
             service.updateUtente(utente);

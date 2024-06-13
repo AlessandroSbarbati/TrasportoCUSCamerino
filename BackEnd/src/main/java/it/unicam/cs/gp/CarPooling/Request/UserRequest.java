@@ -24,5 +24,7 @@ public class UserRequest implements Serializable {
     public String password;
     @JsonProperty("telefono")
     public String telefono;
+    @JsonProperty("codiceCUS")
+    public String codiceCUS;
 
 }
