@@ -40,6 +40,7 @@ public class UtenteService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     /**
      * Questo metodo serve per la registrazione dell'Utente
      * @param registerRequest richiesta della registrazione
@@ -177,4 +178,17 @@ public class UtenteService implements UserDetailsService {
         return jwtServiceInterface.generateToken(utente);
     }
 
+    public void resetPassword(String email, String phoneNumber, String newPassword) {
+        Utente utente = repository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+
+        if (!utente.getTelefono().equals(phoneNumber)) {
+            throw new IllegalArgumentException("Phone number does not match");
+        }
+
+        utente.setPassword(passwordEncoder.encode(newPassword));
+        repository.save(utente);
+    }
 }
+
+

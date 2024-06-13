@@ -202,5 +202,16 @@ public class UtenteController {
                     .body(JwtAuthenticationResponse.builder().error("Errore durante la modifica della password: " + e.getMessage()).build());
         }
     }
+
+    @PutMapping("/resetPassword")
+    public ResponseEntity<?> resetPassword(@RequestBody SignUpRequest request) {
+        try {
+            service.resetPassword(request.getEmail(), request.getTelefono(), request.getPassword());
+            return ResponseEntity.ok("Password reset successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error during password reset: " + e.getMessage());
+        }
+    }
 }
 

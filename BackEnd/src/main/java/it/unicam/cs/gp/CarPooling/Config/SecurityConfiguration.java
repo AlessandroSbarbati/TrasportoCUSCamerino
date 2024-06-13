@@ -44,7 +44,8 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
                         "api/user/createUser", "api/admin/createAdmin", "api/user/login",
-                                "api/admin/loginAdmin","api/booking/allBookings","api/user/getUsers").permitAll()
+                                "api/admin/loginAdmin","api/booking/allBookings","api/user/getUsers",
+                                "api/user/resetPassword").permitAll()
                         .requestMatchers("api/user/getUserData","api/admin/delete",
                                 "api/booking/userBookings","api/booking/book",
                                 "api/booking/deleteBooking", "api/booking/updateBooking",
