@@ -34,6 +34,13 @@ public class UtenteController {
     @PostMapping("/createUser")
     public ResponseEntity<String> addUtente(@RequestBody SignUpRequest request) {
         try {
+            if (service.existsByEmail(request.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("{\"message\": \"Email già in uso\"}");
+            }
+            if (service.existsByTelefono(request.getTelefono())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("{\"message\": \"Telefono già in uso\"}");
+            }
+
             String result = service.registerUtente(request);
             return ResponseEntity.ok().body("{\"message\": \"" + result + "\"}");
         } catch (Exception e) {
