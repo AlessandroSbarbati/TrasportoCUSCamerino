@@ -93,18 +93,7 @@ public class UtenteService implements UserDetailsService {
         repository.save(utente);
         return "Utente salvato con successo";
     }
-
-    /**
-     * Questo metodo serve per eliminare un Utente
-     * @param id identificativo dell'Utente
-     * @return stringa di conferma
-     */
-    public String deleteUtente(Integer id) {
-        repository.deleteById(id);
-        return "Utente rimosso con successo";
-    }
-
-    /**
+        /**
      * Questo metodo serve per trovare tutti gli utenti dalla repository
      * @return repository con tutti gli utenti
      */
@@ -188,6 +177,13 @@ public class UtenteService implements UserDetailsService {
 
         utente.setPassword(passwordEncoder.encode(newPassword));
         repository.save(utente);
+    }
+
+    public String deleteUtente(String nome, String cognome, String email) {
+        Utente utente = repository.findByNomeAndCognomeAndEmail(nome, cognome, email)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        repository.delete(utente);
+        return "Utente rimosso con successo";
     }
 }
 

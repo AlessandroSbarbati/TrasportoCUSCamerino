@@ -82,23 +82,6 @@ public class UtenteController {
     }
 
     /**
-     * Rimuove un utente dal sistema dato il suo identificativo.
-     *
-     * @param id l'identificativo dell'utente da rimuovere
-     * @return una ResponseEntity indicante l'esito dell'operazione di rimozione
-     */
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> removeUtente(@PathVariable Integer id) {
-        try {
-            service.deleteUtente(id);
-            return ResponseEntity.ok("Utente rimosso con successo");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la rimozione dell'utente: " + e.getMessage());
-        }
-    }
-
-    /**
      * Restituisce i dati dell'utente autenticato.
      *
      * @param token il token di autenticazione dell'utente
@@ -211,6 +194,20 @@ public class UtenteController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error during password reset: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<String> deleteUtente(@RequestBody SignUpRequest request) {
+        try {
+            String result = service.deleteUtente(request.getNome(),
+                                                 request.getCognome(),
+                                                 request.getEmail());
+            return ResponseEntity.ok().body("{\"message\": \"" + result + "\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Errore durante la cancellazione dell'utente: " + e.getMessage());
         }
     }
 }

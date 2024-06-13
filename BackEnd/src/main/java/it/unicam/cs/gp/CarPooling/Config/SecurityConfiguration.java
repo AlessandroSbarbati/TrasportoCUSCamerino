@@ -50,7 +50,8 @@ public class SecurityConfiguration {
                                 "api/booking/userBookings","api/booking/book",
                                 "api/booking/deleteBooking", "api/booking/updateBooking",
                                 "api/user/updateUser", "api/user/changePassword").hasAuthority(Role.USER.name())
-                        .requestMatchers("api/booking/getDayBookings").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("api/booking/getDayBookings",
+                                                   "api/user/deleteUser").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
