@@ -38,7 +38,7 @@ public class QuartzSchedulerConfig {
                 .forJob(prenotazioniSvuotamentoJobDetail)
                 .withIdentity("refreshBookingsTrigger")
                 .withSchedule(CronScheduleBuilder.weeklyOnDayAndHourAndMinute(
-                        DateBuilder.SATURDAY, 0, 0))
+                        DateBuilder.SUNDAY, 21, 0))
                 .build();
     }
 }
