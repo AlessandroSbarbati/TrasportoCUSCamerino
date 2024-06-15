@@ -25,6 +25,8 @@ import { PrenotazioneAmministratoreComponent } from './prenotazione-amministrato
 import { ModalComponent } from './modal/modal.component';
 import { GiovediComponent } from './prenotazione/giovedi/giovedi.component';
 import { VenerdiComponent } from './prenotazione/venerdi/venerdi.component';
+import { SabatoComponent } from './prenotazione/sabato/sabato.component';
+import { DomenicaComponent } from './prenotazione/domenica/domenica.component';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { VenerdiComponent } from './prenotazione/venerdi/venerdi.component';
     ModalComponent,
     GiovediComponent,
     VenerdiComponent,
+    SabatoComponent,
+    DomenicaComponent
 
   ],
   imports: [

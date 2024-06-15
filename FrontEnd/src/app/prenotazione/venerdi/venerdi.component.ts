@@ -52,6 +52,13 @@ export class VenerdiComponent {
     this.router.navigate(['/venerdi']);
   }
 
+  sabato() {
+    this.router.navigate(['/sabato']);
+  }
+  domenica() {
+    this.router.navigate(['/domenica']);
+  }
+
   home() {
     this.router.navigate(['/home']);
   }

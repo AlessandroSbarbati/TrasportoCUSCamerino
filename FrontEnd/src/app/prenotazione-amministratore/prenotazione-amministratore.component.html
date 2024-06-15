@@ -36,11 +36,13 @@
     <hr>
     <div class="row mt-2">
     <h5 class="ms-3">Visualizza i giorni della settimana</h5>
-        <button class="btn btn-sm col-2 ms-4" (click)="apriLun()">lunedi</button>
+        <button class="btn btn-sm col-2 ms-4" (click)="apriLun()">Lunedì</button>
         <button class="btn btn-sm col-2 ms-1" (click)="apriMar()">Martedì</button>
-        <button class="btn btn-sm col-2 ms-1" (click)="apriMer()">Mercole</button>
+        <button class="btn btn-sm col-2 ms-1" (click)="apriMer()">Mercoledì</button>
         <button class="btn btn-sm col-2 ms-1" (click)="apriGiov()">Giovedì</button>
-        <button class="btn btn-sm col-2 ms-1 " (click)="apriVen()">Vener</button>
+        <button class="btn btn-sm col-2 ms-1 " (click)="apriVen()">Venerdì</button>
+        <button class="btn btn-sm col-2 ms-1 " (click)="apriSab()">Sabato</button>
+        <button class="btn btn-sm col-2 ms-1 " (click)="apriDom()">Domenica</button>
 
     </div>
     <div class="container  justify-content-center mt-5">
@@ -107,7 +109,22 @@
                         <td>{{pre.indirizzo}}</td>
                     </tr>
                     </tbody>
-            
+                    <tbody  *ngIf="sabato" >
+                      <tr *ngFor="let pre of prenotazioniSabato">
+                      <td>{{pre.giornoSettimana}}</td>
+                      <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                      <td>{{pre.utente.nome}}</td>
+                      <td>{{pre.indirizzo}}</td>
+                  </tr>
+                  </tbody>
+                  <tbody  *ngIf="domenica" >
+                    <tr *ngFor="let pre of prenotazioniDomenica">
+                    <td>{{pre.giornoSettimana}}</td>
+                    <td>{{pre.fasciaOrariaPrenotazione}}</td>
+                    <td>{{pre.utente.nome}}</td>
+                    <td>{{pre.indirizzo}}</td>
+                </tr>
+                </tbody>
                 </table>
             </div>
                

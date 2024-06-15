@@ -25,6 +25,8 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
   prenotazioniMercoledi: any[] = [];  // Aggiungi questa riga per memorizzare le prenotazioni
   prenotazioniGiovedi: any[] = [];  // Aggiungi questa riga per memorizzare le prenotazioni
   prenotazioniVenerdi: any[] = [];  // Aggiungi questa riga per memorizzare le prenotazioni
+  prenotazioniSabato: any[] = [];
+  prenotazioniDomenica: any[] = [];
   tutti: boolean = true;  // Aggiungi questa riga per memorizzare gli utenti
 
   //CONDIZIONI BOOLEANE CHE SE TRUE FANNO VISUALIZZARE IL DIV SUL COMPONENT (*ngIf)
@@ -33,6 +35,8 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
   mercoledi : boolean = false;
   giovedi : boolean = false;
   venerdi : boolean = false;
+  sabato : boolean = false;
+  domenica : boolean = false;
 
 
   constructor(
@@ -53,6 +57,8 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
         this.recuperaDiMercoledi();
         this.recuperaDiGiovedi();
         this.recuperaDiVenerdi();
+        this.recuperaDiSabato();
+        this.recuperaDiDomenica();
         this.recuperaTutti();
     }
 
@@ -63,7 +69,10 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
       this.martedi = false;
       this.mercoledi = false;
       this.lunedi=false;
-    
+      this.giovedi=false;
+      this.venerdi=false;
+      this.sabato=false;
+      this.domenica=false;
     }
 
     apriLun(){
@@ -73,7 +82,8 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
       this.tutti=false;
       this.giovedi = false;
       this.venerdi = false;
-    
+      this.sabato=false;
+      this.domenica=false;
     }
 
     apriMar(){
@@ -83,6 +93,8 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
       this.tutti = false;
       this.giovedi = false;
       this.venerdi = false;
+      this.sabato=false;
+      this.domenica=false;
     }
 
     apriMer(){
@@ -92,27 +104,53 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
       this.tutti = false;
       this.giovedi = false;
       this.venerdi = false;
+      this.sabato=false;
+      this.domenica=false;
     }
 
     apriGiov(){
-      this.giovedi = true
+      this.giovedi = true;
       this.mercoledi = false;
       this.lunedi = false;
       this.martedi = false;
       this.tutti = false;
       this.venerdi = false;
+      this.sabato=false;
+      this.domenica=false;
     }
 
     apriVen(){
-      this.venerdi = true
+      this.venerdi = true;
       this.mercoledi = false;
       this.lunedi = false;
       this.martedi = false;
       this.giovedi = false;
       this.tutti = false;
+      this.sabato=false;
+      this.domenica=false;
     }
 
+    apriSab(){
+      this.sabato = true;
+      this.mercoledi = false;
+      this.lunedi = false;
+      this.martedi = false;
+      this.giovedi = false;
+      this.tutti = false;
+      this.venerdi=false;
+      this.domenica=false;
+    }
  
+    apriDom(){
+      this.domenica = true;
+      this.mercoledi = false;
+      this.lunedi = false;
+      this.martedi = false;
+      this.giovedi = false;
+      this.tutti = false;
+      this.sabato=false;
+      this.venerdi=false;
+    }
 
   recuperaTutti(){
     const token = this.authService.getToken();
@@ -221,8 +259,40 @@ export class PrenotazioneAmministratoreComponent  implements OnInit{
       console.error('Token assente');
     }
   }
-  
-
+  recuperaDiSabato(){
+    const token = this.authService.getToken();
+    const bookData = { giorno_prenotazione: "SABATO" }; // Se `bookingData` deve essere un oggetto
+    if(token) {
+      this.bookingService.getLunedi(token, bookData).subscribe(
+        book => {
+          this.prenotazioniSabato = book;
+          console.log(book);
+        },
+        error => {
+          console.error('Errore durante il recupero delle prenotazioni:', error);
+        }
+      );
+    } else {
+      console.error('Token assente');
+    }
+  }
+  recuperaDiDomenica(){
+    const token = this.authService.getToken();
+    const bookData = { giorno_prenotazione: "DOMENICA" }; // Se `bookingData` deve essere un oggetto
+    if(token) {
+      this.bookingService.getLunedi(token, bookData).subscribe(
+        book => {
+          this.prenotazioniDomenica = book;
+          console.log(book);
+        },
+        error => {
+          console.error('Errore durante il recupero delle prenotazioni:', error);
+        }
+      );
+    } else {
+      console.error('Token assente');
+    }
+  }
 
   logOut(){
     this.authService.logout();

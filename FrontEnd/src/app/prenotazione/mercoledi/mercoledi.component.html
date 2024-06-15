@@ -35,6 +35,8 @@
         <button class="bottone" (click)="mercoledi()" style="background-color: #495057;">Mercoledì</button>
         <button class="bottone" (click)="giovedi()">Giovedì</button>
         <button class="bottone" (click)="venerdi()">Venerdì</button>
+        <button class="bottone" (click)="sabato()">Sabato</button>
+        <button class="bottone" (click)="domenica()">Domenica</button>
       </div>
     
       <div style="margin-bottom:  -10px; margin-top: -20px;">
@@ -43,136 +45,56 @@
 
       
   
-      <div *ngIf="checkIfMondayTuesdayOrWednesday" class="contenitore2">
+      <div *ngIf="checkIfMondayTuesdayOrWednesday()"  class="contenitore2">
         <div class="carta">
-            
           <div class="prima-riga">
             <div class="left">
               <div class="indicatore"></div>
-              <span class="cus">camerino-cus</span>
+              <span class="cus">CUS-Montagnano-Contram</span>
             </div>
             <div class="right">
               <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:09:30</span>
+              <span style="font-weight: 600;">Mer:22:00</span>
             </div>
           </div>
           <div class="separatore"></div>
           <div class="seconda-riga">
-            <a  style="color: #2e2e2e; font-size: 0.9rem;" (click)="book('ORE_9_30','camerino-cus')"> <span>Clicca per prenotare</span></a>
+            <a  style="color: #2e2e2e; font-size: 0.9rem;" (click)="book('ORE_22','CUS-Montagnano-Contram')"> <span>Clicca per prenotare</span></a>
           </div>
         </div>
         <div class="carta">
           <div class="prima-riga">
             <div class="left">
               <div class="indicatore"></div>
-              <span class="cus">cus-camerino</span>
+              <span class="cus">CUS-Montagnano-Contram</span>
             </div>
             <div class="right">
               <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:10:00</span>  
+              <span style="font-weight: 600;">Mer:22:30</span>  
             </div>
           </div>
           <div class="separatore"></div>
           <div class="seconda-riga">
-            <span style="color: #2e2e2e; font-size: 0.9rem;" (click)="book('ORE_10','cus-camerino')">Clicca per prenotare</span>
+            <span style="color: #2e2e2e; font-size: 0.9rem;" (click)="book('ORE_22_30','CUS-Montagnano-Contram')">Clicca per prenotare</span>
           </div>
         </div>
         <div class="carta">
-          <div class="prima-riga">
-            <div class="left">
-              <div class="indicatore"></div>
-              <span class="cus">cus-camerino</span>
+            <div class="prima-riga">
+              <div class="left">
+                <div class="indicatore"></div>
+                <span class="cus">CUS-Montagnano-Contram</span>
+              </div>
+              <div class="right">
+                <span style="color: #9a9a9a; ">Orario</span>
+                <span style="font-weight: 600;">Mer:23:00</span>  
+              </div>
             </div>
-            <div class="right">
-              <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:15:00</span>  
-            </div>
-          </div>
-          <div class="separatore"></div>
-          <div class="seconda-riga">
-            <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
-          </div>
-        </div>
-        <div class="carta">
-          <div class="prima-riga">
-            <div class="left">
-              <div class="indicatore"></div>
-              <span class="cus">cus-camerino</span>
-            </div>
-            <div class="right">
-              <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:14:00</span>
+            <div class="separatore"></div>
+            <div class="seconda-riga">
+              <span style="color: #2e2e2e; font-size: 0.9rem;" (click)="book('ORE_23','CUS-Montagnano-Contram')">Clicca per prenotare</span>
             </div>
           </div>
-          <div class="separatore"></div>
-          <div class="seconda-riga">
-            <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
-          </div>
-        </div>
-        <div class="carta">
-          <div class="prima-riga">
-            <div class="left">
-              <div class="indicatore"></div>
-              <span class="cus">cus-camerino</span>
-            </div>
-            <div class="right">
-              <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:10:00</span>   
-            </div>
-          </div>
-          <div class="separatore"></div>
-          <div class="seconda-riga">
-            <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
-          </div>
-        </div>
-        <div class="carta">
-          <div class="prima-riga">
-            <div class="left">
-              <div class="indicatore"></div>
-              <span class="cus">cus-camerino</span>
-            </div>
-            <div class="right">
-              <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:11:00</span>   
-            </div>
-          </div>
-          <div class="separatore"></div>
-          <div class="seconda-riga">
-            <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
-          </div>
-        </div>
-        <div class="carta">
-          <div class="prima-riga">
-            <div class="left">
-              <div class="indicatore"></div>
-              <span class="cus">cus-camerino</span>
-            </div>
-            <div class="right">
-              <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:11:00</span>  
-            </div>
-          </div>
-          <div class="separatore"></div>
-          <div class="seconda-riga">
-            <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
-          </div>
-        </div>
-        <div class="carta">
-          <div class="prima-riga">
-            <div class="left">
-              <div class="indicatore"></div>
-              <span class="cus">cus-camerino</span>
-            </div>
-            <div class="right">
-              <span style="color: #9a9a9a; ">Orario</span>
-              <span style="font-weight: 600;">Mer:11:00</span>  
-            </div>
-          </div>
-          <div class="separatore"></div>
-          <div class="seconda-riga">
-            <span style="color: #2e2e2e; font-size: 0.9rem;">Clicca per prenotare</span>
-          </div>
-        </div>
+         
       </div>
       <div *ngIf="!checkIfMondayTuesdayOrWednesday"  class="alert alert-danger" role="alert">
         Non è possibile effettuare la prenotazione
