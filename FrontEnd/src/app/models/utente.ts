@@ -7,10 +7,11 @@ export class Utente {
     email: String;
     role: String;
     telefono : String;
+    codiceCUS : String;
     
     
 
-    constructor(id: Number, nome: String, cognome: String, email: String, username: String, role: String, telefono: String ) {
+    constructor(id: Number, nome: String, cognome: String, email: String, username: String, role: String, telefono: String, codiceCUS: String ) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -18,6 +19,7 @@ export class Utente {
         this.username = username;
         this.role = role;
         this.telefono = telefono;
+        this.codiceCUS=codiceCUS;
         
     }
 
@@ -39,6 +41,10 @@ export class Utente {
 
     gettelefono() {
         return this.telefono;
+    }
+
+    getCodiceCUS(){
+        return this.codiceCUS;
     }
 
     settelefono(telefono : string) {
@@ -91,5 +97,12 @@ export class Utente {
             throw console.error("Id can't be null.");
         }
         this.email = email; 
+    }
+
+    setCodiceCUS(codiceCUS : String){
+        if(codiceCUS==null){
+            throw console.error("CodiceCUS can't be null.");
+        }
+        this.codiceCUS=codiceCUS;
     }
 }

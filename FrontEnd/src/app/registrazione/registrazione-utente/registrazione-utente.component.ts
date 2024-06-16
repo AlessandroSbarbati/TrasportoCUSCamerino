@@ -23,7 +23,7 @@ export class RegistrazioneUtenteComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       telefono: ['', [Validators.required,]],
-      
+      codiceCUS: ['', [Validators.required,]]
     });
   }
 

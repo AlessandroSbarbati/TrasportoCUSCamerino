@@ -14,7 +14,6 @@ import { ModalComponent } from '../../modal/modal.component';
 })
 export class LunediComponent implements OnInit{
 
-  isMonday: boolean = false;
 
   constructor(
     private router: Router,
@@ -25,24 +24,17 @@ export class LunediComponent implements OnInit{
 
     ) {}
 
-  ngOnInit(): void {
-    this.isMonday = this.checkIfMonday();
-
-      
+  ngOnInit(): void {  
   }
 
   
-  // printCurrentDay(): void {
-  //   const currentDate = new Date();
-  //   const currentDay = currentDate.toLocaleDateString('it-IT', { weekday: 'long' });
-  //   console.log('Oggi è:', currentDay);
-  // }
-
-  checkIfMonday(): boolean {
+  
+  checkIfDay(): boolean{
     const currentDate = new Date();
-    return currentDate.getDay() === 1; // 0 è Domenica, 1 è Lunedì, ecc.
+    const dayOfWeek = currentDate.getDay();
+      return dayOfWeek === 0 || dayOfWeek === 2 || dayOfWeek === 3 ||
+      dayOfWeek === 4 || dayOfWeek === 5 || dayOfWeek === 6;
   }
-
 
   openModal( content: string): void {
     const dialogRef = this.dialog.open(ModalComponent, {
@@ -107,6 +99,7 @@ export class LunediComponent implements OnInit{
 
     logOut(){
       this.authService.logout();
+      this.router.navigate(['/loginUtente']);
     }
   
  

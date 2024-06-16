@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class GiovediComponent {
 
-  isMonday: boolean = false;
+  
 
   constructor(
     private router: Router,
@@ -24,22 +24,14 @@ export class GiovediComponent {
 
     ) {}
 
-  ngOnInit(): void {
-    this.isMonday = this.checkIfMonday();
-
-      
+  ngOnInit(): void {   
   }
 
   
-  // printCurrentDay(): void {
-  //   const currentDate = new Date();
-  //   const currentDay = currentDate.toLocaleDateString('it-IT', { weekday: 'long' });
-  //   console.log('Oggi è:', currentDay);
-  // }
-
-  checkIfMonday(): boolean {
+  checkIfDay(): boolean{
     const currentDate = new Date();
-    return currentDate.getDay() === 1; // 0 è Domenica, 1 è Lunedì, ecc.
+    const dayOfWeek = currentDate.getDay();
+      return dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6;
   }
 
   openModal( content: string): void {
@@ -76,6 +68,7 @@ export class GiovediComponent {
   
     logOut(){
       this.authService.logout();
+      this.router.navigate(['/loginUtente']);
     }
 
   //route

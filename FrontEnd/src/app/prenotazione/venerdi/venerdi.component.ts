@@ -65,6 +65,7 @@ export class VenerdiComponent {
 
     logOut(){
       this.authService.logout();
+      this.router.navigate(['/loginUtente']);
     }
 
     book(ora : string,indirizzo : string){
@@ -88,10 +89,9 @@ export class VenerdiComponent {
       }
     }
 
-    checkIfMondayTuesdayOrWednesday(): boolean {
+    checkIfDay(): boolean{
       const currentDate = new Date();
       const dayOfWeek = currentDate.getDay();
-      return dayOfWeek === 1 || dayOfWeek === 2 || dayOfWeek === 3; // 1 è Lunedì, 2 è Martedì, 3 è Mercoledì
+        return dayOfWeek === 0 || dayOfWeek === 6;
     }
-
 }

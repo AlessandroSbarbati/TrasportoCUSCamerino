@@ -60,7 +60,7 @@ export class LoginUtenteComponent {
       this.http.post('http://localhost:8080/api/user/login', userData).subscribe(
         (response: any) => {
 
-          const userLogged = new Utente(response.utente.id, response.utente.nome, response.utente.cognome, response.utente.email, response.utente.email, response.utente.email, response.utente.telefono);
+          const userLogged = new Utente(response.utente.id, response.utente.nome, response.utente.cognome, response.utente.email, response.utente.email, response.utente.email, response.utente.telefono, response.utente.codiceCUS);
           // this.utenteService.setUser(userLogged);
 
           // console.log("nome " + userLogged.getNome());

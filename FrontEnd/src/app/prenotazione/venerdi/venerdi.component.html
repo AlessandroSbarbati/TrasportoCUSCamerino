@@ -44,7 +44,7 @@
           <h1>Venerdi</h1>
         </div>
     
-        <div   class="contenitore2">
+        <div *ngIf="!checkIfDay()"  class="contenitore2">
           <div class="carta">
             <div class="prima-riga">
               <div class="left">
@@ -95,7 +95,7 @@
             </div>
            
         </div>
-        <div *ngIf="!checkIfMondayTuesdayOrWednesday"  class="alert alert-danger" role="alert">
+        <div *ngIf="checkIfDay()"  class="alert alert-danger" role="alert">
           Non è possibile effettuare la prenotazione
         </div>
         

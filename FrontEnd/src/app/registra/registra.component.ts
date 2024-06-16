@@ -21,6 +21,7 @@ export class RegistraComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       telefono: ['', [Validators.required,]],
+      codiceCUS: ['', [Validators.required,]]
       
     });
   }

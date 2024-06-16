@@ -29,10 +29,12 @@ export class MartediComponent {
 
 
   //controlla il giorno corrente
-  checkIfMondayOrTuesday(): boolean {
+
+  checkIfDay(): boolean{
     const currentDate = new Date();
     const dayOfWeek = currentDate.getDay();
-    return dayOfWeek === 1 || dayOfWeek === 2; // 1 è Lunedì, 2 è Martedì
+      return dayOfWeek === 0 || dayOfWeek === 3 ||
+      dayOfWeek === 4 || dayOfWeek === 5 || dayOfWeek === 6;
   }
   
   openModal( content: string): void {
@@ -75,6 +77,7 @@ export class MartediComponent {
 
     logOut(){
       this.authService.logout();
+      this.router.navigate(['/loginUtente']);
     }
 
     book(ora : string,indirizzo : string){

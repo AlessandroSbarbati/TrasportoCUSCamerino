@@ -74,6 +74,9 @@ export class HomeComponent implements OnInit {
     const currentDay = new Date().getDay(); // Ottieni il giorno corrente (0 = Domenica, 1 = Lunedì, ..., 6 = Sabato)
     
     switch (currentDay) {
+      case 0:
+        this.router.navigate(['/domenica']);
+        break;
       case 1:
         this.router.navigate(['/lunedi']);
         break;
@@ -88,6 +91,9 @@ export class HomeComponent implements OnInit {
         break;
       case 5:
         this.router.navigate(['/venerdi']);
+        break;
+        case 6:
+        this.router.navigate(['/sabato']);
         break;
       default:
         // Altri giorni della settimana possono essere gestiti qui

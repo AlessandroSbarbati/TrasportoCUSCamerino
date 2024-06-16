@@ -153,20 +153,26 @@
 
   .contenitore-bottoni {
 	display: flex;
-	justify-content: center;
-	gap: 0.2rem;
-	margin-top: 1rem;
-
+	flex-wrap: wrap; /* Permette ai bottoni di andare a capo se necessario */
+	justify-content: center; /* Centra i bottoni all'interno del contenitore */
+	gap: 0.2rem; /* Spazio tra i bottoni */
+	margin-top: 1rem; /* Spazio superiore al contenitore */
+	padding: 10px; /* Spazio interno del contenitore */
+	box-sizing: border-box; /* Include padding e bordo nella larghezza e altezza totale */
   }
+  
   .bottone {
-	background-color: gray;
-	color: white;
-	border: none;
-	border-radius: 0.5rem;
-	padding: 1rem;
-	padding: 0.5rem 1rem;
-	font-size: 0.7rem;
-	font-weight: 700;
+	background-color: gray; /* Colore di sfondo di default */
+	color: white; /* Colore del testo */
+	border: none; /* Rimuove il bordo */
+	border-radius: 0.5rem; /* Bordi arrotondati */
+	padding: 0.5rem 1rem; /* Spazio interno dei bottoni */
+	font-size: 0.7rem; /* Dimensione del testo */
+	font-weight: 700; /* Peso del testo */
+	flex: 1 1 auto; /* Permette ai bottoni di adattarsi alla dimensione del contenitore */
+	box-sizing: border-box; /* Include padding e bordo nella larghezza e altezza totale */
+	text-align: center; /* Centro il testo all'interno dei bottoni */
+	cursor: pointer; /* Cambio del cursore al passaggio del mouse */
   }
 
   .contenitore-principale {
