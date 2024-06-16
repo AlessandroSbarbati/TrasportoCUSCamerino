@@ -111,6 +111,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
- 
+  cronologia() {
+    this.router.navigate(['/cronologia']);
+  }
 
 }

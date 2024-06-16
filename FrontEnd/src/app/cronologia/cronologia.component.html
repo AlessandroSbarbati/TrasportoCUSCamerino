@@ -1,0 +1,56 @@
+<div class="immagine-sfondo"></div>
+<nav>
+    <ul class="nav-bar">
+      <a (click)="home()"><div class="title"><img src="../../assets/icons/profilo.png" alt="icona profilo" class="icona-profilo"></div></a>
+      <input
+        type="checkbox"
+        id="check" />
+      <span class="menu">
+        <li><a (click)="logOut()">Logout</a></li>
+        <label
+          for="check"
+          class="close-menu"
+          ><i class="fas fa-times"></i
+        ></label>
+      </span>
+      <label
+        for="check"
+        class="open-menu"
+        ><i
+          class="fas fa-bars"
+          style="color: white"></i
+      ></label>
+    </ul>
+  </nav>
+<div class="container justify-content-center mt-5">
+   
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Prenotazioni della settimana</h5>
+        <div class="table table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Giorno</th>
+                <th scope="col">Ora</th>
+                <th scope="col">Utente</th>
+                <th scope="col">Tratta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prenotazione of prenotazioni" class="prenotazione">
+                <td>{{ prenotazione.giornoSettimana }}</td>
+                <td>{{ prenotazione.fasciaOrariaPrenotazione }}</td>
+                <td>{{ prenotazione.utente.nome }}</td>
+                <td>{{ prenotazione.indirizzo }}</td>
+              </tr>
+              <tr *ngIf="prenotazioni.length === 0">
+                <td colspan="4">Non ci sono prenotazioni.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -16,6 +16,7 @@ import { GiovediComponent } from './prenotazione/giovedi/giovedi.component';
 import { VenerdiComponent } from './prenotazione/venerdi/venerdi.component';
 import { SabatoComponent } from './prenotazione/sabato/sabato.component';
 import { DomenicaComponent } from './prenotazione/domenica/domenica.component';
+import { CronologiaComponent } from './cronologia/cronologia.component';
 
 const routes: Routes = [
 
@@ -34,6 +35,7 @@ const routes: Routes = [
   {  path: 'domenica',  component: DomenicaComponent, canActivate: [AuthGuard]  },
   {  path: 'home',  component: HomeComponent, canActivate: [AuthGuard] },
   {  path: 'homeAmministratore',  component: HomeAmministratoreComponent },
+  { path: 'cronologia', component: CronologiaComponent },
   {  path: '',  component: LoginUtenteComponent },
 ];
 
