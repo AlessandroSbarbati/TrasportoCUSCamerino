@@ -12,7 +12,7 @@ import { BookingRequest } from '../models/booking-request';
 export class CronologiaComponent implements OnInit {
 
   prenotazioni: any[] = []; 
-
+ 
   constructor(
     private authService: AuthService,
     private bookingService: BookingService,   
@@ -42,10 +42,46 @@ export class CronologiaComponent implements OnInit {
 
   logOut() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/loginUtente']);
   }
 
   home() {
     this.router.navigate(['/home']);
+  }
+
+  eliminaPrenotazione(prenotazione: BookingRequest) {
+    const token = this.authService.getToken();
+
+    if (token) {
+      this.bookingService.deleteBooking(token, prenotazione).subscribe(
+        response => {
+          console.log('Prenotazione eliminata:', response);
+          this.recuperaTutti();  // Ricarica le prenotazioni dopo l'eliminazione
+        },
+        error => {
+          console.error('Errore durante l\'eliminazione della prenotazione:', error);
+        }
+      );
+    } else {
+      console.error('Token assente');
+    }
+  }
+
+
+  modificaPrenotazione(oldPrenotazione: BookingRequest, newPrenotazione: BookingRequest) {
+    const token = this.authService.getToken();
+    if (token) {
+      this.bookingService.updateBooking(token).subscribe(
+        response => {
+          console.log('Prenotazione modificata:', response);
+          this.recuperaTutti();  // Ricarica le prenotazioni dopo la modifica
+        },
+        error => {
+          console.error('Errore durante la modifica della prenotazione:', error);
+        }
+      );
+    } else {
+      console.error('Token assente');
+    }
   }
 }

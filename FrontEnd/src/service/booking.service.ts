@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { BookingRequest } from '../app/models/booking-request';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,28 @@ export class BookingService {
     );
   }
 
+  // Metodo per eliminare una prenotazione
+  deleteBooking(token: string, bookingData: BookingRequest): Observable<any> {
+    const apiUrl = 'http://localhost:8080/api/booking/deleteBooking';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   
+    return this.http.delete<any>(apiUrl, { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Errore durante la chiamata deleteBooking:', error);
+        return throwError('Errore durante la chiamata deleteBooking');
+      })
+    );
+  }
+  
+  updateBooking(token: string): Observable<any[]> {
+    const apiUrl = 'http://localhost:8080/api/booking/updateBooking';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    return this.http.get<any[]>(apiUrl, { headers }).pipe(
+      catchError(error => {
+        console.error('Errore durante la chiamata getUsers:', error);
+        return throwError(() => new Error('Errore durante la chiamata getUsers'));
+      })
+    );
+  }
 }

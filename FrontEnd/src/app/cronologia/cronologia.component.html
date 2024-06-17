@@ -35,6 +35,7 @@
                 <th scope="col">Ora</th>
                 <th scope="col">Utente</th>
                 <th scope="col">Tratta</th>
+                <th scope="col">Azioni</th>
               </tr>
             </thead>
             <tbody>
@@ -43,9 +44,13 @@
                 <td>{{ prenotazione.fasciaOrariaPrenotazione }}</td>
                 <td>{{ prenotazione.utente.nome }}</td>
                 <td>{{ prenotazione.indirizzo }}</td>
+                <td>
+                  <button (click)="eliminaPrenotazione(prenotazione)" class="btn btn-danger">Elimina</button>
+                  <!--<button (click)="modificaPrenotazione(prenotazione, nuovaPrenotazione)" class="btn btn-warning">Modifica</button>-->
+                </td>
               </tr>
               <tr *ngIf="prenotazioni.length === 0">
-                <td colspan="4">Non ci sono prenotazioni.</td>
+                <td colspan="5">Non ci sono prenotazioni.</td>
               </tr>
             </tbody>
           </table>
@@ -53,4 +58,3 @@
       </div>
     </div>
   </div>
-  
