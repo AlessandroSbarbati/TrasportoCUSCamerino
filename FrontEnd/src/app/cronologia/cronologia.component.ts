@@ -53,20 +53,22 @@ export class CronologiaComponent implements OnInit {
     const token = this.authService.getToken();
 
     if (token) {
-      this.bookingService.deleteBooking(token, prenotazione).subscribe(
-        response => {
-          console.log('Prenotazione eliminata:', response);
-          this.recuperaTutti();  // Ricarica le prenotazioni dopo l'eliminazione
-        },
-        error => {
-          console.error('Errore durante l\'eliminazione della prenotazione:', error);
-        }
-      );
-    } else {
-      console.error('Token assente');
-    }
-  }
+        console.log('Eliminazione prenotazione con token:', token);
+        console.log('Prenotazione da eliminare:', prenotazione);
 
+        this.bookingService.deleteBooking(token, prenotazione).subscribe(
+            response => {
+                console.log('Prenotazione eliminata:', response);
+                this.recuperaTutti();  // Ricarica le prenotazioni dopo l'eliminazione
+            },
+            error => {
+                console.error('Errore durante l\'eliminazione della prenotazione:', error);
+            }
+        );
+    } else {
+        console.error('Token assente');
+    }
+}
 
   modificaPrenotazione(oldPrenotazione: BookingRequest, newPrenotazione: BookingRequest) {
     const token = this.authService.getToken();

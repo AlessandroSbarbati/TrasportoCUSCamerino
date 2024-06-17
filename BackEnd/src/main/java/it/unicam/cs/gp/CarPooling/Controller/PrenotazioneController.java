@@ -86,7 +86,7 @@ public class PrenotazioneController {
      * @param bookingRequest dati della prenotazione
      * @return messaggio di avvenuta cancellazione
      */
-    @DeleteMapping(path="/deleteBooking")
+    @PostMapping(path="/deleteBooking")
     public ResponseEntity<String> deleteBooking(@RequestHeader("Authorization") String token,
                                 @RequestBody BookingRequest bookingRequest){
         try {

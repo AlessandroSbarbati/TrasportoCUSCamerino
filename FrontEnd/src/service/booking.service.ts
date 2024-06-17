@@ -59,18 +59,19 @@ export class BookingService {
     );
   }
 
-  // Metodo per eliminare una prenotazione
   deleteBooking(token: string, bookingData: BookingRequest): Observable<any> {
     const apiUrl = 'http://localhost:8080/api/booking/deleteBooking';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  
-    return this.http.delete<any>(apiUrl, { headers }).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error('Errore durante la chiamata deleteBooking:', error);
-        return throwError('Errore durante la chiamata deleteBooking');
-      })
+    
+    console.log('Chiamata API per eliminare la prenotazione:', bookingData);
+
+    return this.http.post<any[]>(apiUrl, bookingData, { headers }).pipe(
+        catchError((error: HttpErrorResponse) => {
+            console.error('Errore durante la chiamata deleteBooking:', error);
+            return throwError('Errore durante la chiamata deleteBooking');
+        })
     );
-  }
+}
   
   updateBooking(token: string): Observable<any[]> {
     const apiUrl = 'http://localhost:8080/api/booking/updateBooking';
